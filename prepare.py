@@ -92,11 +92,13 @@ def scale_data(train, validate, test, scaler, target):
 
     plt.figure(figsize=(13, 6))
     plt.subplot(121)
-    plt.hist(x_train, ec='black')
+    plt.hist(x_train, ec='black', label=x_cols)
     plt.title('Original')
+    plt.legend()
     plt.subplot(122)
-    plt.hist(x_train_scaled, ec='black')
+    plt2 = plt.hist(x_train_scaled, ec='black', label=x_cols)
     plt.title(name)
+    plt.legend()
 
     return x_train_scaled, y_train, x_validate_scaled, y_validate, x_test_scaled, y_test
 
