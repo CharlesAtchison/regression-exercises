@@ -58,12 +58,12 @@ def prepare_data(df):
     for col in df.columns:
         df[[col]] = imputer.fit_transform(df[[col]])
 
-    # Convert fips to object/str so it can be categorical
-    df.fips = df.fips.astype('int').astype('object')
-    df.year = df.year.astype('int').astype('object')
+    # # Convert fips to object/str so it can be categorical
+    # df.fips = df.fips.astype('int').astype('object')
+    # df.year = df.year.astype('int').astype('object')
 
     # Remove outliers reducing observations from 2,152,864 to 1,802,511
-    df = remove_outliers(df, [col for col in df.columns if col not in ['fips']])
+    df = remove_outliers(df, [col for col in df.columns if col not in ['fips', 'year']])
 
     # # Use this to print the histplot distributions
     # show_histplots(df, 'tax_val')
@@ -101,4 +101,3 @@ def scale_data(train, validate, test, scaler, target):
     plt.legend()
 
     return x_train_scaled, y_train, x_validate_scaled, y_validate, x_test_scaled, y_test
-
