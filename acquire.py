@@ -25,8 +25,9 @@ def get_zillow_data():
         conn = get_db_url(username=user, password=password, hostname=host, database_name='zillow')
         
         sql = '''
-        select bedroomcnt, bathroomcnt, calculatedfinishedsquarefeet,
-         taxvaluedollarcnt, yearbuilt, taxamount, fips from properties_2017
+        select bedroomcnt, bathroomcnt, calculatedfinishedsquarefeet, latitude, longitude,
+        taxvaluedollarcnt, yearbuilt, taxamount, fips, regionidzip, regionidcity, lotsizesquarefeet
+        from properties_2017
         join propertylandusetype
         on propertylandusetype.propertylandusetypeid = properties_2017.propertylandusetypeid
         and propertylandusetype.propertylandusetypeid in (261, 279)
@@ -66,7 +67,10 @@ def fetch_data_dict(df, target):
         'taxvaluedollarcnt':'taxable value for the home',
         'yearbuilt':'defines the year that the home was built',
         'taxamount':'quantifies the amount of taxes the home pays',
-        'fips'	:'Federal state code'}
+        'fips'	:'Federal state code',
+        'regionidzip': '',
+        'regionidcity': '',
+        'lotsizesquarefeet': ''}
 
     feature_dict = pd.DataFrame([{'Feature': col, 
          'Datatype': f'{df[col].count()} non-null: {df[col].dtype}',
